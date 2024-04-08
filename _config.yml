@@ -1,0 +1,36 @@
+title: 吴悦晨的个人主页
+author:
+  name: 吴悦晨
+  email: wuyuechen8@gmail.com
+description: >
+  吴悦晨的个人主页
+
+minima:
+  date_format: "%b %-d, %Y"
+  social_links:
+  #  - { platform: facebook,       user_url: "https://www.facebook.com/jekyll" }
+    - { platform: github,         user_url: "https://github.com/Uyosen/Uyosen.github.io" }
+    - { platform: google_scholar, user_url: "https://scholar.google.com/citations?user=FrhG5QUAAAAJ" }
+  #  - { platform: linkedin,       user_url: "https://www.linkedin.com/in/jekyll" }
+  #  - { platform: stackoverflow,  user_url: "https://stackoverflow.com/users/1234567/jekyll" }
+  #  - { platform: youtube,        user_url: "https://www.youtube.com/jekyll" }
+
+# Build settings
+baseurl: /
+remote_theme: jekyll/minima
+plugins:
+  - jekyll-feed
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+
+# Theme-specific settings
+header_pages:
+  - index.md
+  - blog.md
+  - cv.md
+  - about.md
+
+lang: en
+google_analytics: # UA-NNNNNNNN-N
+show_excerpts: true  # Set to `true` to show excerpts on the homepage.
+paginate: false
