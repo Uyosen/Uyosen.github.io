@@ -23,7 +23,7 @@ title: 简历
 ## 著作
 #### 论文
 - **GameRTS: A Regression Testing Framework for Video Games**[[pdf]](/assets/papers/GameRTS_A_Regression_Testing_Framework_for_Video_Games.pdf)[[homepage]](https://sites.google.com/view/gamerts)  
-Jiongchi Yu*, **Yuechen Wu***, Xiaofei Xie, Wei Le, Lei Ma, Yingfeng Chen, Jingyu Hu, Fan Zhang  
+Jiongchi Yu\*, **Yuechen Wu**\*, Xiaofei Xie, Wei Le, Lei Ma, Yingfeng Chen, Jingyu Hu, Fan Zhang  
 *ICSE-2023 (CCF-A)*  
 
 - **GBGallery: A benchmark and framework for game testing**[[pdf]](/assets/papers/GBGallery_A_benchmark_and_framework_for_game_testing.pdf)[[homepage]](https://sites.google.com/view/gbgallery)  
