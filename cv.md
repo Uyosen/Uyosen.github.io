@@ -4,21 +4,32 @@ permalink: /cv/
 title: 简历
 ---
 
-山东大学硕士，网易伏羲机器人算法工程师，主要从事深度强化学习、游戏智能决策、机器人智能决策方向的研究和应用工作。研究的基于强化学习的游戏智能体能够自主学习完成游戏任务，该技术已接入网易多个游戏，在游戏任务测试和游戏任务挂机服等场景提供服务支持。另外研究挖掘机智能化作业，负责挖掘智能机器人的任务决策和运动规划算法开发，该智能挖掘机技术已在多个实际建设项目中落地，同时作为调试负责人**接受央视新闻拍摄报道**。以一二作身份在IEEE TNNLS、ESE、IJCAI、ICSE等国际权威期刊和顶级会议上发表论文6篇，申请发明专利8项，曾获硕士研究生国家奖学金、山东大学优秀研究生、网易伏羲技术创新一等奖等奖项。
+山东大学硕士，算法工程师，主要从事强化学习、游戏决策、机器人决策方向的研究和应用工作。
+熟悉Linux操作系统和Python语言，熟悉PyTorch/TensorFlow深度学习框架，拥有丰富的框架设计与编程开发经验。
+以一二作身份在IEEE TNNLS、ESE、IJCAI、ICSE等国际权威期刊和顶级会议上发表论文6篇，申请发明专利8项。
+曾被央视拍摄报道挖掘机器人方向的工作，曾获硕士研究生国家奖学金、优秀研究生、网易伏羲技术创新一等奖等奖项。
 
-<video src="/assets/videos/世界互联网大会_挖掘机器人.mp4" width="800px" height="600px" controls="controls"></video>
+<video src="/assets/videos/世界互联网大会.mp4" width="640px" height="480px" controls="controls"></video>
 > 《央视新闻》世界互联网大会
-
-## 兴趣
-- 深度强化学习
-- 游戏人工智能
-- 机器人人工智能
 
 ## 教育
 - 山东大学 硕士  
 控制科学与工程学院 2016-2019
 - 哈尔滨工业大学 本科  
 航天学院 2012-2016
+
+## 项目
+#### 智能挖掘机器人
+挖掘机是工程机械皇冠上的明珠，但施工场景往往复杂、高危。该项目旨在为挖掘机行业打造一个游戏化的操作平台，让挖机师傅远程就能完成施工任务。
+
+<video src="/assets/videos/自动装车.mp4" width="640px" height="480px" controls="controls"></video>
+> 自动装车：一键标定挖掘点及卸料点，生成最优控制轨迹，自动执行挖土动作并到达指定位置完成卸料，实现自动装车作业
+
+#### 智能任务测试
+游戏测试通常通过QA人工测试或者编写自动化脚本测试，需要大量的时间和人力投入。该项目提出将强化学习应用游戏测试，智能体可以自主学习完成游戏任务测试。
+
+<video src="https://youtu.be/ohuNWkFjd7E" width="640px" height="480px" poster="/assets/images/GDC2020.jpg" controls="controls"></video>
+> GDC2020: Machine Learning Summit: Building An Intelligent Game Testing System in Netease MMORPG Game
 
 ## 著作
 #### 论文
