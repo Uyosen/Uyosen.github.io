@@ -29,7 +29,7 @@ title: 简历
 游戏测试通常通过QA人工测试或者编写自动化脚本测试，需要大量的时间和人力投入。该项目提出将强化学习应用游戏测试，智能体可以自主学习完成游戏任务测试。
 
 ![](/assets/images/GDC2020.jpg)
-> GDC2020[YouTube](https://www.youtube.com/embed/ohuNWkFjd7E): Machine Learning Summit: Building An Intelligent Game Testing System in Netease MMORPG Game
+> GDC2020[[YouTube]](https://www.youtube.com/embed/ohuNWkFjd7E): Machine Learning Summit: Building An Intelligent Game Testing System in Netease MMORPG Game
 
 ## 著作
 #### 论文
