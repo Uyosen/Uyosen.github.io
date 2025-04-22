@@ -16,7 +16,7 @@ minima:
   #  - { platform: youtube,        user_url: "https://www.youtube.com/jekyll" }
 
 # Build settings
-baseurl: /cv
+baseurl: /
 remote_theme: jekyll/minima
 plugins:
   - jekyll-feed
