@@ -22,16 +22,20 @@ title: 首页
 
 ## 项目
 #### 智能挖掘机器人
-挖掘机是工程机械皇冠上的明珠，但施工场景往往复杂、高危。该项目旨在为挖掘机行业打造一个游戏化的操作平台，让挖机师傅远程就能完成施工任务。
+挖掘机是工程机械皇冠上的明珠，但施工场景往往复杂、高危。智能挖掘机器人旨在为挖掘机行业打造一个游戏化的操作平台，让挖机师傅远程就能完成施工任务。
 
 <video src="/assets/videos/自动装车.mp4" width="640px" height="480px" controls="controls"></video>
-> 自动装车：一键标定挖掘点及卸料点，生成最优控制轨迹，自动执行挖土动作并到达指定位置完成卸料，实现自动装车作业
+> 自动装车：一键标记挖掘点及卸料点，生成最优控制轨迹，自动执行挖掘动作并到达指定位置完成卸料，实现自动装车作业
+
+<video src="/assets/videos/自动挖沟.mp4" width="640px" height="480px" controls="controls"></video>
+> 自动挖沟：一键标记挖掘长度和深度及卸料点，生成最优控制轨迹，自动执行挖掘动作满足指定长度和深度，并到达指定位置完成卸料，实现自动挖沟作业
 
 #### 智能任务测试
-游戏测试通常通过QA人工测试或者编写自动化脚本测试，需要大量的时间和人力投入。该项目提出将强化学习应用游戏测试，智能体可以自主学习完成游戏任务测试。
+<video src="/assets/videos/任务测试.mp4" width="640px" height="480px" controls="controls"></video>
+> 游戏测试通常通过QA人工测试或者编写自动化脚本测试，需要大量的时间和人力投入。该项目提出将强化学习应用游戏测试，智能体可以自主学习完成游戏任务测试。
 
 ![](/assets/images/GDC2020.jpg)
-> GDC2020[[YouTube]](https://www.youtube.com/embed/ohuNWkFjd7E): Machine Learning Summit: Building An Intelligent Game Testing System in Netease MMORPG Game
+> 游戏开发者大会(GDC2020)[[YouTube]](https://www.youtube.com/embed/ohuNWkFjd7E): Machine Learning Summit: Building An Intelligent Game Testing System in Netease MMORPG Game
 
 ## 著作
 #### 论文
@@ -59,7 +63,7 @@ Zhuo Li, **Yuechen Wu**, Lei Ma, Xiaofei Xie, Yingfeng Chen, Changjie Fan
 Jiongchi Yu\*, **Yuechen Wu**\*, Xiaofei Xie, Wei Le, Lei Ma, Yingfeng Chen, Jingyu Hu, Fan Zhang  
 *ICSE-2023 (CCF-A)*  
 
-- **A Language-guided Acceleration Method for Smoke Testing of Game Quests**[[pdf]](/assets/papers/GameRTS_A_Regression_Testing_Framework_for_Video_Games.pdf)[[homepage]](https://sites.google.com/view/gamerts)  
+- **A Language-guided Acceleration Method for Smoke Testing of Game Quests**[[pdf]](https://ieeexplore.ieee.org/document/10771223)  
 Jie Hu, Mingyue Zhang, Bo Liu, **Yuechen Wu**, Yingfeng Chen  
 *ISSREW-2024 (CCF-B)*  
 
