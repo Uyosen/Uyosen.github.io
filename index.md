@@ -253,16 +253,9 @@ var seq=[
     {s:1.4,e:0.1,bx:155,w:20},
     {s:0.8,e:0.8,bx:155,w:0},
     {s:0.3,e:1.2,bx:155,w:0},
-    {s:-0.3,e:1.5,bx:155,w:0},
-    {s:-0.4,e:1.4,bx:180,w:0},
-    {s:-0.4,e:1.4,bx:210,w:0},
-    {s:-0.4,e:1.4,bx:240,w:0},
     {s:-0.5,e:1.3,bx:280,w:0},
     {s:-0.3,e:1.0,bx:280,w:20},
     {s:0.5,e:0.5,bx:280,w:0},
-    {s:0.6,e:0.7,bx:240,w:0},
-    {s:0.6,e:0.8,bx:210,w:0},
-    {s:0.6,e:0.9,bx:180,w:0},
     {s:0.7,e:1.0,bx:155,w:0}];
 
 function ik(tx,ty){
@@ -276,7 +269,7 @@ ce=Math.max(-1,Math.min(1,ce));
 var eAng=Math.acos(ce);
 var at=Math.atan2(dx,dy);
 var b=Math.atan2(L2*Math.sin(eAng),L1+L2*Math.cos(eAng));
-var sAng=at+b;
+var sAng=at-b;
 return{s:sAng,e:eAng};}
 
 function armPos(s,e){
@@ -365,10 +358,11 @@ function update(){
     if(autoOn){
         if(autoPause>0){autoPause--;}
         else{
-            autoT+=0.022;
-            if(autoT>=1){autoT=0;autoIdx=(autoIdx+1)%seq.length;
-            if(seq[autoIdx].w>0)autoPause=seq[autoIdx].w;}
-            var nx=seq[autoIdx];tSA=nx.s;tEA=nx.e;tbX=nx.bx;}}}
+            var converged=Math.abs(sA-tSA)<0.03&&Math.abs(eA-tEA)<0.03&&Math.abs(bx-tbX)<2;
+            if(converged){
+                autoIdx=(autoIdx+1)%seq.length;
+                var nx=seq[autoIdx];tSA=nx.s;tEA=nx.e;tbX=nx.bx;
+                if(nx.w>0)autoPause=nx.w;}}}
 
 function loop(){update();draw();requestAnimationFrame(loop);}
 
