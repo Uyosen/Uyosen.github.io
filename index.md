@@ -241,7 +241,7 @@ draw();
 (function(){
 var canvas=document.getElementById('exc-canvas'),ctx=canvas.getContext('2d');
 var W=canvas.width,H=canvas.height;
-var bx=155,by=H-48,L1=88,L2=82;
+var bx=200,by=H-48,L1=88,L2=82;
 var sA=0.7,eA=1.0,tSA=0.7,tEA=1.0;
 var autoOn=false,autoIdx=0,autoT=0,autoPause=0;
 var trail=[];
@@ -249,9 +249,9 @@ var tbX=bx,trackOffset=0;
 
 var seq=[
     {s:0.7,e:1.0,bx:200,w:0},
-    {s:1.8,e:-0.3,bx:200,w:0},
-    {s:1.6,e:-0.5,bx:200,w:25},
-    {s:0.8,e:0.6,bx:200,w:0},
+    {s:0.5,e:-1.8,bx:200,w:0},
+    {s:0.4,e:-2.0,bx:200,w:25},
+    {s:0.7,e:1.0,bx:200,w:0},
     {s:-0.3,e:1.5,bx:200,w:0},
     {s:-0.5,e:1.3,bx:460,w:0},
     {s:-0.3,e:1.0,bx:460,w:25},
@@ -295,14 +295,14 @@ ctx.fillStyle='#3d2b1f';ctx.fillRect(0,H-48,W,48);
 ctx.fillStyle='#2d4a1f';ctx.fillRect(0,H-50,W,6);
 // dirt pile (dig area)
 ctx.fillStyle='#5c3a1e';ctx.beginPath();
-ctx.arc(340,H-48,22,Math.PI,0);ctx.fill();
+ctx.arc(280,H-48,22,Math.PI,0);ctx.fill();
 // dump area marker
 ctx.strokeStyle='rgba(255,200,50,0.25)';ctx.lineWidth=1;ctx.setLineDash([4,4]);
 ctx.strokeRect(440,H-110,100,62);ctx.setLineDash([]);
 ctx.fillStyle='rgba(255,200,50,0.12)';ctx.fillRect(440,H-110,100,62);
 // labels
 ctx.font='11px sans-serif';ctx.textAlign='center';
-ctx.fillStyle='rgba(255,150,100,0.55)';ctx.fillText('挖掘区',340,H-56);
+ctx.fillStyle='rgba(255,150,100,0.55)';ctx.fillText('挖掘区',280,H-56);
 ctx.fillStyle='rgba(255,200,50,0.55)';ctx.fillText('卸料区',490,H-115);
 // tracks
 ctx.fillStyle='#292524';ctx.fillRect(bx-42,by+8,12,26);
@@ -363,6 +363,7 @@ function update(){
                 autoIdx=(autoIdx+1)%seq.length;
                 var nx=seq[autoIdx];tSA=nx.s;tEA=nx.e;tbX=nx.bx;
                 if(nx.w>0)autoPause=nx.w;}}}
+}
 
 function loop(){update();draw();requestAnimationFrame(loop);}
 
@@ -384,7 +385,7 @@ msg.textContent='💡 点击画布任意位置移动机械臂';}};
 
 window.excReset=function(){
 autoOn=false;autoIdx=0;autoT=0;trail=[];
-sA=0.7;eA=1.0;tSA=0.7;tEA=1.0;bx=155;tbX=155;trackOffset=0;
+sA=0.7;eA=1.0;tSA=0.7;tEA=1.0;bx=200;tbX=200;trackOffset=0;
 document.getElementById('exc-auto-btn').textContent='▶ AI自动作业';
 document.getElementById('exc-auto-btn').className='btn btn-green';
 document.getElementById('exc-msg').textContent='💡 点击画布任意位置移动机械臂';};
