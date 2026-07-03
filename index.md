@@ -248,16 +248,22 @@ var trail=[];
 var tbX=bx,trackOffset=0;
 
 var seq=[
-{s:0.7,e:1.0,bx:155,w:0},
-{s:1.5,e:0.3,bx:155,w:0},
-{s:1.4,e:0.1,bx:155,w:20},
-{s:0.8,e:0.8,bx:155,w:0},
-{s:0.3,e:1.2,bx:155,w:0},
-{s:-0.3,e:1.5,bx:155,w:0},
-{s:-0.5,e:1.3,bx:280,w:0},
-{s:-0.3,e:1.0,bx:280,w:20},
-{s:0.5,e:0.5,bx:280,w:0},
-{s:0.7,e:1.0,bx:155,w:0}];
+    {s:0.7,e:1.0,bx:155,w:0},
+    {s:1.5,e:0.3,bx:155,w:0},
+    {s:1.4,e:0.1,bx:155,w:20},
+    {s:0.8,e:0.8,bx:155,w:0},
+    {s:0.3,e:1.2,bx:155,w:0},
+    {s:-0.3,e:1.5,bx:155,w:0},
+    {s:-0.4,e:1.4,bx:180,w:0},
+    {s:-0.4,e:1.4,bx:210,w:0},
+    {s:-0.4,e:1.4,bx:240,w:0},
+    {s:-0.5,e:1.3,bx:280,w:0},
+    {s:-0.3,e:1.0,bx:280,w:20},
+    {s:0.5,e:0.5,bx:280,w:0},
+    {s:0.6,e:0.7,bx:240,w:0},
+    {s:0.6,e:0.8,bx:210,w:0},
+    {s:0.6,e:0.9,bx:180,w:0},
+    {s:0.7,e:1.0,bx:155,w:0}];
 
 function ik(tx,ty){
 var dx=tx-bx,dy=ty-(by-24);
@@ -351,18 +357,18 @@ ctx.fillStyle='rgba(34,197,94,0.85)';ctx.font='bold 13px sans-serif';ctx.textAli
 ctx.fillText('● AI 自动作业中',12,22);}}
 
 function update(){
-var df=0.055;sA+=(tSA-sA)*df;eA+=(tEA-eA)*df;
-bx+=(tbX-bx)*0.06;
-var p=armPos(sA,eA);trail.push({x:p.hx,y:p.hy});
-if(trail.length>100)trail.shift();
-if(bx!==tbX)trackOffset=(trackOffset+0.3)%8;
-if(autoOn){
-if(autoPause>0){autoPause--;return;}
-var t=seq[autoIdx];autoT+=0.022;
-if(autoT>=1){autoT=0;autoIdx=(autoIdx+1)%seq.length;
-if(seq[autoIdx].w>0)autoPause=seq[autoIdx].w;
-var nx=seq[autoIdx];tSA=nx.s;tEA=nx.e;tbX=nx.bx;}
-else{var nx2=seq[autoIdx];tSA=nx2.s;tEA=nx2.e;tbX=nx2.bx;}}}
+    var df=0.055;sA+=(tSA-sA)*df;eA+=(tEA-eA)*df;
+    bx+=(tbX-bx)*0.06;
+    var p=armPos(sA,eA);trail.push({x:p.hx,y:p.hy});
+    if(trail.length>100)trail.shift();
+    if(Math.abs(bx-tbX)>0.5)trackOffset=(trackOffset+0.3)%8;
+    if(autoOn){
+        if(autoPause>0){autoPause--;}
+        else{
+            autoT+=0.022;
+            if(autoT>=1){autoT=0;autoIdx=(autoIdx+1)%seq.length;
+            if(seq[autoIdx].w>0)autoPause=seq[autoIdx].w;}
+            var nx=seq[autoIdx];tSA=nx.s;tEA=nx.e;tbX=nx.bx;}}}
 
 function loop(){update();draw();requestAnimationFrame(loop);}
 
