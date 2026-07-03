@@ -249,13 +249,7 @@ var tbX=bx,trackOffset=0;
 
 var seq=[
     {s:0.7,e:1.0,bx:155,w:0},
-    {s:1.5,e:0.3,bx:155,w:0},
-    {s:1.4,e:0.1,bx:155,w:20},
-    {s:0.8,e:0.8,bx:155,w:0},
-    {s:0.3,e:1.2,bx:155,w:0},
-    {s:-0.5,e:1.3,bx:280,w:0},
-    {s:-0.3,e:1.0,bx:280,w:20},
-    {s:0.5,e:0.5,bx:280,w:0},
+    {s:0.7,e:1.0,bx:460,w:0},
     {s:0.7,e:1.0,bx:155,w:0}];
 
 function ik(tx,ty){
@@ -331,7 +325,7 @@ var p=armPos(sA,eA);
 drawSeg(p.bx,p.by,p.ex,p.ey,13,'#f59e0b');
 drawSeg(p.ex,p.ey,p.hx,p.hy,9,'#fbbf24');
 // bucket
-var ta=sA+eA,bw=16;
+var ta=sA-eA,bw=16;
 ctx.lineWidth=3;ctx.strokeStyle='#78350f';
 ctx.beginPath();
 ctx.moveTo(p.hx-bw*0.6*Math.cos(ta+0.7),p.hy-bw*0.6*Math.sin(ta+0.7));
