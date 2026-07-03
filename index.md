@@ -83,6 +83,7 @@ title: 首页
 <a href="/cv">📄 查看完整简历 → 论文 · 专利 · 项目详情</a>
 </div>
 
+{% raw %}
 <script>
 /* ========== GridWorld Q-Learning ========== */
 (function(){
@@ -458,3 +459,4 @@ window.addEventListener('resize',function(){resize();});
 draw();
 })();
 </script>
+{% endraw %}

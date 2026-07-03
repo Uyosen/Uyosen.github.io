@@ -43,6 +43,7 @@ title: 关于
 .btn-primary{background:#3b82f6;color:#fff;}
 </style>
 
+{% raw %}
 <script>
 (function(){
 var canvas=document.getElementById('qxs-canvas'),ctx=canvas.getContext('2d');
@@ -270,3 +271,4 @@ window.qxsReset=function(){
 loop();
 })();
 </script>
+{% endraw %}
