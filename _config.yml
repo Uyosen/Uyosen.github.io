@@ -26,9 +26,9 @@ plugins:
 # Theme-specific settings
 header_pages:
   - index.md
-  - about.md
   - cv.md
   - blog.md
+  - about.md
 
 lang: en
 google_analytics: # UA-NNNNNNNN-N
