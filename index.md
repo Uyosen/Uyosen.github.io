@@ -58,6 +58,7 @@ title: 首页
 <button class="btn btn-primary" id="gw-human-btn" onclick="gwStartHuman()">🕹️ 人类挑战</button>
 <button class="btn btn-green" id="gw-ai-btn" onclick="gwStartAI()">🤖 AI自动寻路</button>
 <button class="btn btn-gray" onclick="gwReset()">↺ 重置</button>
+<button class="btn btn-gray" onclick="gwRandomize()">🎲 随机地图</button>
 <div class="gw-info"><span id="gw-steps">步数: 0</span><span id="gw-msg">点击上方按钮开始</span></div>
 </div>
 <div id="gw-board" class="gw-grid" tabindex="0"></div>
@@ -103,7 +104,38 @@ function sk(r,c){return r*GW+c;}
 function gq(r,c,a){var k=sk(r,c)*4+a;return Q[k]||0;}
 function sq(r,c,a,v){Q[sk(r,c)*4+a]=v;}
 
+function bfs(startR,startC){
+var vis=[],q=[];
+for(var i=0;i<GW;i++)vis.push(new Array(GW).fill(false));
+vis[startR][startC]=true;q.push({r:startR,c:startC});
+while(q.length>0){
+var cur=q.shift();
+for(var a=0;a<4;a++){
+var nr=cur.r+dr[a],nc=cur.c+dc[a];
+if(nr>=0&&nr<GW&&nc>=0&&nc<GW&&!vis[nr][nc]&&grid[nr][nc]!==1){
+vis[nr][nc]=true;q.push({r:nr,c:nc});}}}
+return vis;}
+
+function generateRandomMap(){
+var newGrid=[];
+for(var i=0;i<GW;i++)newGrid.push(new Array(GW).fill(0));
+var obsCount=Math.floor(Math.random()*8)+12;
+for(var i=0;i<obsCount;i++){
+var r=Math.floor(Math.random()*GW),c=Math.floor(Math.random()*GW);
+newGrid[r][c]=1;}
+var empty=[];
+for(var i=0;i<GW;i++)for(var j=0;j<GW;j++)if(newGrid[i][j]===0)empty.push({r:i,c:j});
+if(empty.length<2)return generateRandomMap();
+var idx1=Math.floor(Math.random()*empty.length);
+var idx2=(idx1+Math.floor(Math.random()*(empty.length-1))+1)%empty.length;
+var start=empty[idx1],goal=empty[idx2];
+newGrid[start.r][start.c]=0;newGrid[goal.r][goal.c]=0;
+var reachable=bfs(start.r,start.c);
+if(!reachable[goal.r][goal.c])return generateRandomMap();
+grid=newGrid;sr=start.r;sc=start.c;gr=goal.r;gc=goal.c;}
+
 function train(ep){
+Q={};
 for(var e=0;e<ep;e++){
 var r=sr,c=sc;
 for(var s=0;s<200;s++){
@@ -183,6 +215,15 @@ running=false;isAI=false;pr=sr;pc=sc;steps=0;
 draw();setSteps('步数: 0');setMsg('点击上方按钮开始');
 setStatus('💡 提示: 人类用方向键移动，AI 经过 3000 轮 Q-learning 训练后自动寻路');};
 
+window.gwRandomize=function(){
+if(animId){clearTimeout(animId);animId=null;}
+running=false;isAI=false;
+generateRandomMap();
+train(3000);
+pr=sr;pc=sc;steps=0;
+draw();setSteps('步数: 0');setMsg('🎲 新地图已生成！');
+setStatus('🧠 AI 已在新地图上重新训练，点击按钮开始挑战');};
+
 document.addEventListener('keydown',function(e){
 if(!running||isAI)return;
 var a=-1;
@@ -201,18 +242,22 @@ draw();
 var canvas=document.getElementById('exc-canvas'),ctx=canvas.getContext('2d');
 var W=canvas.width,H=canvas.height;
 var bx=155,by=H-48,L1=88,L2=82;
-var sA=0.7,eA=2.1,tSA=0.7,tEA=2.1;
+var sA=0.7,eA=1.0,tSA=0.7,tEA=1.0;
 var autoOn=false,autoIdx=0,autoT=0,autoPause=0;
 var trail=[];
+var tbX=bx,trackOffset=0;
 
 var seq=[
-{s:0.7,e:2.1,p:70,w:0},
-{s:1.35,e:2.7,p:55,w:0},
-{s:1.15,e:1.9,p:45,w:25},
-{s:0.05,e:1.5,p:45,w:0},
-{s:-0.55,e:2.0,p:45,w:0},
-{s:-0.35,e:1.65,p:40,w:25},
-{s:0.7,e:2.1,p:70,w:0}];
+{s:0.7,e:1.0,bx:155,w:0},
+{s:1.5,e:0.3,bx:155,w:0},
+{s:1.4,e:0.1,bx:155,w:20},
+{s:0.8,e:0.8,bx:155,w:0},
+{s:0.3,e:1.2,bx:155,w:0},
+{s:-0.3,e:1.5,bx:155,w:0},
+{s:-0.5,e:1.3,bx:280,w:0},
+{s:-0.3,e:1.0,bx:280,w:20},
+{s:0.5,e:0.5,bx:280,w:0},
+{s:0.7,e:1.0,bx:155,w:0}];
 
 function ik(tx,ty){
 var dx=tx-bx,dy=ty-(by-24);
@@ -225,12 +270,12 @@ ce=Math.max(-1,Math.min(1,ce));
 var eAng=Math.acos(ce);
 var at=Math.atan2(dx,dy);
 var b=Math.atan2(L2*Math.sin(eAng),L1+L2*Math.cos(eAng));
-var sAng=at-b;
+var sAng=at+b;
 return{s:sAng,e:eAng};}
 
 function armPos(s,e){
 var ex=bx+L1*Math.sin(s),ey=(by-24)+L1*Math.cos(s);
-var ta=s+e;
+var ta=s-e;
 var hx=ex+L2*Math.sin(ta),hy=ey+L2*Math.cos(ta);
 return{bx:bx,by:by-24,ex:ex,ey:ey,hx:hx,hy:hy};}
 
@@ -260,6 +305,13 @@ ctx.fillStyle='rgba(255,200,50,0.12)';ctx.fillRect(440,H-110,100,62);
 ctx.font='11px sans-serif';ctx.textAlign='center';
 ctx.fillStyle='rgba(255,150,100,0.55)';ctx.fillText('挖掘区',340,H-56);
 ctx.fillStyle='rgba(255,200,50,0.55)';ctx.fillText('卸料区',490,H-115);
+// tracks
+ctx.fillStyle='#292524';ctx.fillRect(bx-42,by+8,12,26);
+ctx.fillStyle='#292524';ctx.fillRect(bx+30,by+8,12,26);
+for(var ti=0;ti<8;ti++){
+ctx.fillStyle='#44403c';
+ctx.fillRect(bx-42, by+10+ti*3.2, 10, 2);
+ctx.fillRect(bx+32, by+10+(ti+trackOffset)%8*3.2, 10, 2);}
 // base
 ctx.fillStyle='#d97706';ctx.fillRect(bx-32,by-4,64,22);
 ctx.fillStyle='#92400e';ctx.fillRect(bx-38,by+16,76,10);
@@ -300,15 +352,17 @@ ctx.fillText('● AI 自动作业中',12,22);}}
 
 function update(){
 var df=0.055;sA+=(tSA-sA)*df;eA+=(tEA-eA)*df;
+bx+=(tbX-bx)*0.06;
 var p=armPos(sA,eA);trail.push({x:p.hx,y:p.hy});
 if(trail.length>100)trail.shift();
+if(bx!==tbX)trackOffset=(trackOffset+0.3)%8;
 if(autoOn){
 if(autoPause>0){autoPause--;return;}
 var t=seq[autoIdx];autoT+=0.022;
 if(autoT>=1){autoT=0;autoIdx=(autoIdx+1)%seq.length;
 if(seq[autoIdx].w>0)autoPause=seq[autoIdx].w;
-var nx=seq[autoIdx];tSA=nx.s;tEA=nx.e;}
-else{var nx2=seq[autoIdx];tSA=nx2.s;tEA=nx2.e;}}}
+var nx=seq[autoIdx];tSA=nx.s;tEA=nx.e;tbX=nx.bx;}
+else{var nx2=seq[autoIdx];tSA=nx2.s;tEA=nx2.e;tbX=nx2.bx;}}}
 
 function loop(){update();draw();requestAnimationFrame(loop);}
 
@@ -324,13 +378,13 @@ var btn=document.getElementById('exc-auto-btn');
 var msg=document.getElementById('exc-msg');
 if(autoOn){btn.textContent='⏸ 暂停';btn.className='btn btn-primary';
 msg.textContent='🤖 AI 正在执行自动挖掘作业流程';
-autoIdx=0;autoT=0;autoPause=0;tSA=seq[0].s;tEA=seq[0].e;trail=[];}
+autoIdx=0;autoT=0;autoPause=0;tSA=seq[0].s;tEA=seq[0].e;tbX=seq[0].bx;trail=[];}
 else{btn.textContent='▶ AI自动作业';btn.className='btn btn-green';
 msg.textContent='💡 点击画布任意位置移动机械臂';}};
 
 window.excReset=function(){
 autoOn=false;autoIdx=0;autoT=0;trail=[];
-sA=0.7;eA=2.1;tSA=0.7;tEA=2.1;
+sA=0.7;eA=1.0;tSA=0.7;tEA=1.0;bx=155;tbX=155;trackOffset=0;
 document.getElementById('exc-auto-btn').textContent='▶ AI自动作业';
 document.getElementById('exc-auto-btn').className='btn btn-green';
 document.getElementById('exc-msg').textContent='💡 点击画布任意位置移动机械臂';};
